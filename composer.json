@@ -1,0 +1,27 @@
+{
+    "name": "sitebill/app-sdk",
+    "description": "SDK for installable Sitebill apps (PHP + Vue): base service provider, tenant-aware models, contracts. Sitebill is a real-estate CMS / SaaS platform.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["sitebill", "real-estate", "cms", "plugin", "app", "sdk", "laravel", "marketplace"],
+    "homepage": "https://sitebillcms.com/",
+    "authors": [
+        { "name": "Sitebill", "homepage": "https://sitebillcms.com/" }
+    ],
+    "support": {
+        "issues": "https://github.com/Sitebill/sitebill-app-sdk/issues",
+        "source": "https://github.com/Sitebill/sitebill-app-sdk",
+        "docs": "https://github.com/rumantic/etownpro-developers-docs"
+    },
+    "require": {
+        "php": ">=8.4",
+        "illuminate/database": "^13.0",
+        "illuminate/support": "^13.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sitebill\\AppSdk\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
