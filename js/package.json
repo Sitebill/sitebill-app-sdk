@@ -1,6 +1,6 @@
 {
   "name": "@sitebill/app-sdk",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Sitebill installable apps: typed web host contract (Vue 3) and the sitebill-app CLI (check, pack, dev). Sitebill is a real-estate CMS / SaaS platform.",
   "license": "MIT",
   "author": "Sitebill <https://sitebillcms.com/>",
