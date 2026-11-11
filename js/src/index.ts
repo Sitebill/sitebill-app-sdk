@@ -19,10 +19,14 @@ export interface AppHost {
   components: {
     UButton: Component
     UInput: Component
+    UTextarea: Component
     UBadge: Component
     UIcon: Component
     UModal: Component
+    UCard: Component
   }
+  /** Signed-in site user (read-only) or null for a guest. */
+  readonly user: { id: string, name: string } | null
 }
 
 /** Props every admin page component receives. */
@@ -41,6 +45,30 @@ export function defineAdminPages<T extends AppAdminPages>(pages: T): T {
   return pages
 }
 
+/**
+ * Widget slots of the site and the admin panel (contract 1.1). Widgets render in the browser only.
+ *  - site:  'property.detail' (context: { propertyId }), 'home.sections', 'global' (over every page)
+ *  - admin: 'admin.dashboard'
+ * Declare them in manifest.json: "site": { "widgets": { "property.detail": "CallbackButton" } }
+ * and export the components from web/site.mjs (or web/admin.mjs for admin widgets): `export const widgets = {...}`.
+ */
+export type SiteWidgetSlot = 'property.detail' | 'home.sections' | 'global'
+export type AdminWidgetSlot = 'admin.dashboard'
+
+/** Props every widget component receives. */
+export interface AppWidgetProps<C extends Record<string, unknown> = Record<string, unknown>> {
+  host: AppHost
+  /** Data of the place, e.g. { propertyId } for 'property.detail'. */
+  context: C
+}
+
+export type AppWidgets = Record<string, Component>
+
+/** Typed helper for the `widgets` export of web/site.mjs / web/admin.mjs. */
+export function defineWidgets<T extends AppWidgets>(widgets: T): T {
+  return widgets
+}
+
 export interface AppManifest {
   id: string
   name: string | Record<string, string>
@@ -54,6 +82,8 @@ export interface AppManifest {
   admin?: {
     menu?: { label: string | Record<string, string>, icon?: string, path?: string }[]
     pages?: string[]
+    widgets?: Partial<Record<AdminWidgetSlot, string>>
   }
+  site?: { widgets?: Partial<Record<SiteWidgetSlot, string>> }
   web?: { admin?: string, site?: string }
 }
