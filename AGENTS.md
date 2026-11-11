@@ -10,6 +10,7 @@ Product sites: https://sitebillcms.com/ (international), https://www.sitebill.ru
   (`AppHost`, `TenantContext`) and binds them in its container.
 - Contract rule: within a major version only add (methods, fields, props); removal/rename = new major
   (`sdk.php` / `sdk.web` in manifest.json and `apps.sdk_major` in the platform config).
+- CLI: `js/bin/sitebill-app.mjs` (`check|pack|dev`), rules in `js/lib/check.mjs` mirror the platform installer (`App\Apps\AppInstaller`, `AppManifest`) — change both together.
 - Status: preview 0.x, not yet on Packagist/npm. The platform loads `src/` from a git submodule.
 - Public-facing text (README, package metadata) is bilingual EN/RU; code comments in English.
 - Dev docs: https://github.com/rumantic/etownpro-developers-docs

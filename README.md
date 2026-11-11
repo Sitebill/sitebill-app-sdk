@@ -3,7 +3,7 @@
 **EN** · SDK for **installable apps** for [Sitebill](https://sitebillcms.com/) — the real-estate CMS / SaaS platform (Community Edition). An app is a regular **Laravel (PHP 8.4) + Vue 3** package: its own tables, GraphQL, REST, admin pages and site widgets. The admin installs it from a `.zip` or from the marketplace, and the site picks it up **without rebuilding** — it works like a built-in module.
 **RU** · SDK для **устанавливаемых приложений** платформы [Sitebill](https://www.sitebill.ru/) (сайты и CRM для недвижимости, Community Edition). Приложение — обычный пакет **Laravel (PHP 8.4) + Vue 3**: свои таблицы, GraphQL, REST, страницы админки и виджеты сайта. Администратор ставит его из `.zip` или из маркетплейса, и сайт подхватывает его **без пересборки** — как встроенный модуль.
 
-> **Preview 0.x.** The contract is being stabilised: names may change before 1.0. Not yet on Packagist/npm — install from GitHub.
+> **Preview 0.x.** The contract is being stabilised: names may change before 1.0. Packagist/npm publishing is being prepared — until then install from GitHub.
 > **Превью 0.x.** Контракт стабилизируется, до 1.0 названия могут меняться. В Packagist и npm пока не опубликовано — ставьте из GitHub.
 
 | | |
@@ -32,6 +32,17 @@ docker compose exec api php artisan apps install /tmp/my-app
 ```
 
 Unsigned packages (your own code, not from the marketplace) are allowed only when the install sets `APPS_ALLOW_UNSIGNED=true`.
+
+### CLI `sitebill-app` (npm `@sitebill/app-sdk`, Node 22.2+, no dependencies)
+
+```bash
+npx --package @sitebill/app-sdk sitebill-app check            # same rules as the platform installer + extra warnings
+npx --package @sitebill/app-sdk sitebill-app pack             # check + build <id>-<version>.sbapp (zip) for upload
+npx --package @sitebill/app-sdk sitebill-app dev --compose ../community/docker-compose.yml   # reinstall into the Community stack on every save
+```
+
+`check`: manifest, paths, `php -l`, namespace, `app_<id>_` table prefix, `@guard` + `@can` on mutations, locales (ru/en/sr/tg in sync), bundles and widgets from the manifest, `schedule`. `dev --once` installs once. Pass `--php <path>` if `php` is not in `PATH`.
+CLI `sitebill-app`: `check` — проверка теми же правилами, что и у установщика; `pack` — сборка `.sbapp` для загрузки; `dev` — переустановка в Community-стек при каждой правке.
 
 ### Package layout
 

@@ -1,7 +1,7 @@
 {
   "name": "@sitebill/app-sdk",
-  "version": "0.1.0",
-  "description": "Browser side of installable Sitebill apps: typed host contract for admin pages (Vue 3). Sitebill is a real-estate CMS / SaaS platform.",
+  "version": "0.2.0",
+  "description": "Sitebill installable apps: typed web host contract (Vue 3) and the sitebill-app CLI (check, pack, dev). Sitebill is a real-estate CMS / SaaS platform.",
   "license": "MIT",
   "author": "Sitebill <https://sitebillcms.com/>",
   "homepage": "https://sitebillcms.com/",
@@ -13,17 +13,35 @@
   "bugs": {
     "url": "https://github.com/Sitebill/sitebill-app-sdk/issues"
   },
-  "keywords": ["sitebill", "real-estate", "cms", "plugin", "app", "sdk", "vue"],
+  "keywords": [
+    "sitebill",
+    "real-estate",
+    "cms",
+    "plugin",
+    "app",
+    "sdk",
+    "vue"
+  ],
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
   },
   "types": "./src/index.ts",
-  "files": ["src"],
+  "files": [
+    "src",
+    "bin",
+    "lib"
+  ],
   "peerDependencies": {
     "vue": "^3.5.0"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "bin": {
+    "sitebill-app": "./bin/sitebill-app.mjs"
+  },
+  "engines": {
+    "node": ">=22.2"
   }
 }
