@@ -10,6 +10,8 @@ export interface AppHost {
   /** Translation from the app's locales/<lang>.json (falls back to en, then ru, then the key). */
   t(key: string): string
   toast(title: string, color?: 'success' | 'error'): void
+  /** Site path with the current language prefix, e.g. localePath('/admin/deals'). */
+  localePath(path: string): string
   formatDate(iso: string): string
   /** GraphQL of the site: the app's own fields and the published core fields. Returns `data`. */
   gql<T = any>(query: string, variables?: Record<string, unknown>): Promise<T>
@@ -24,6 +26,8 @@ export interface AppHost {
     UIcon: Component
     UModal: Component
     UCard: Component
+    USwitch: Component
+    USelect: Component
   }
   /** Signed-in site user (read-only) or null for a guest. */
   readonly user: { id: string, name: string } | null
