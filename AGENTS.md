@@ -3,8 +3,8 @@
 SDK for installable Sitebill apps (Laravel PHP 8.4 + Vue 3, loaded at runtime from a volume).
 Product sites: https://sitebillcms.com/ (international), https://www.sitebill.ru/ (Russia/CIS).
 
-- Layout: `src/` — PHP (`Sitebill\AppSdk\`): `AppServiceProvider`, `AppModel`, `AppDescriptor`,
-  `Contracts/{AppHost,TenantContext}`, `Concerns/BelongsToTenant`, `Scopes/TenantScope`.
+- Layout: `src/` — PHP (`Sitebill\AppSdk\`): `Host` (Host API entry point), `Data/*` (DTOs), `AppServiceProvider`, `AppModel`, `AppDescriptor`,
+  `Contracts/{AppHost,TenantContext,Site,AppSettings,Crm,Properties,Notifier}`, `Concerns/BelongsToTenant`, `Scopes/TenantScope`.
   `js/src/index.ts` — browser contract (`AppHost`, `defineAdminPages`, `AppManifest`).
 - This package must not reference platform classes (`App\…`): the platform implements the contracts
   (`AppHost`, `TenantContext`) and binds them in its container.

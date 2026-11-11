@@ -18,7 +18,7 @@
 
 | Part | Package | What |
 |---|---|---|
-| PHP (repo root) | `sitebill/app-sdk` (Composer) | `AppServiceProvider` — base provider of an app; `AppModel` — tenant-aware Eloquent model; `AppDescriptor`; contracts `AppHost`, `TenantContext` |
+| PHP (repo root) | `sitebill/app-sdk` (Composer) | `AppServiceProvider` — base provider of an app; `AppModel` — tenant-aware Eloquent model; `AppDescriptor`; **Host API** (`Host::site()`, `settings()`, `crm()`, `properties()`, `notifier()`) with DTOs in `Data\` |
 | Browser (`js/`) | `@sitebill/app-sdk` (npm) | TypeScript contract of admin pages: `AppHost` (`gql`, `rest`, `t`, `toast`, site UI components), `defineAdminPages`, `AppManifest` type |
 
 ## Quick start (EN)
@@ -69,6 +69,31 @@ final class Request extends \Sitebill\AppSdk\AppModel
 ```
 
 Exceptions in `registerApp()` / `bootApp()` mark the app as *broken* — the site and other apps keep working.
+
+### Host API (PHP, contract 1.1)
+
+Everything an app needs from the platform goes through `Sitebill\AppSdk\Host` — never through platform classes:
+
+| Call | What |
+|---|---|
+| `Host::site()->current()` | `SiteInfo`: tenant id, name, url, locale, locales (null without a site context) |
+| `Host::settings()->get/set/forget/all($appId, …)` | app settings of the current site; `secret()/setSecret()` for API keys (encrypted at rest) |
+| `Host::crm()->createLead([...])` | contact (deduplicated by phone/e-mail) + lead in the default pipeline; admins are notified like for the site form |
+| `Host::crm()->findOrCreateContact(...)`, `findContact($id)` | CRM contacts as `ContactData` |
+| `Host::properties()->find($id)`, `latest($n)` | listings of the current site, read-only (`PropertyData` with public URL) |
+| `Host::notifier()->notifyAdmins($appId, $title, $body, $url)` | bell / e-mail / Telegram / Max by each admin's preferences |
+
+```php
+use Sitebill\AppSdk\Host;
+
+$lead = Host::crm()->createLead([
+    'name' => $name, 'phone' => $phone, 'message' => $comment,
+    'property_id' => $propertyId, 'source' => 'acme.callback',
+]);
+```
+
+In queue jobs and console commands bind the site first (the platform does it for HTTP requests); without it data calls throw.
+Require the version in `manifest.json`: `"requires": { "host": ">=1.1" }`.
 
 ### Browser
 
