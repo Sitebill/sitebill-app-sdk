@@ -3,8 +3,8 @@
 **EN** · SDK for **installable apps** for [Sitebill](https://sitebillcms.com/) — the real-estate CMS / SaaS platform (Community Edition). An app is a regular **Laravel (PHP 8.4) + Vue 3** package: its own tables, GraphQL, REST, admin pages and site widgets. The admin installs it from a `.zip` or from the marketplace, and the site picks it up **without rebuilding** — it works like a built-in module.
 **RU** · SDK для **устанавливаемых приложений** платформы [Sitebill](https://www.sitebill.ru/) (сайты и CRM для недвижимости, Community Edition). Приложение — обычный пакет **Laravel (PHP 8.4) + Vue 3**: свои таблицы, GraphQL, REST, страницы админки и виджеты сайта. Администратор ставит его из `.zip` или из маркетплейса, и сайт подхватывает его **без пересборки** — как встроенный модуль.
 
-> **Preview 0.x.** The contract is being stabilised: names may change before 1.0. Packagist/npm publishing is being prepared — until then install from GitHub.
-> **Превью 0.x.** Контракт стабилизируется, до 1.0 названия могут меняться. В Packagist и npm пока не опубликовано — ставьте из GitHub.
+> **Preview 0.x.** The contract is being stabilised: names may change before 1.0. Published: `composer require sitebill/app-sdk`, `npm i -D @sitebill/app-sdk`.
+> **Превью 0.x.** Контракт стабилизируется, до 1.0 названия могут меняться. Опубликовано: `composer require sitebill/app-sdk`, `npm i -D @sitebill/app-sdk`.
 
 | | |
 |---|---|
