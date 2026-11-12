@@ -3,6 +3,7 @@
 SDK for installable Sitebill apps (Laravel PHP 8.4 + Vue 3, loaded at runtime from a volume).
 Product sites: https://sitebillcms.com/ (international), https://www.sitebill.ru/ (Russia/CIS).
 
+- Building an app as an AI agent (test platform, build, test, pack, publish): https://github.com/Sitebill/sitebill-app-starter/blob/main/AGENT_GUIDE.md
 - Layout: `src/` — PHP (`Sitebill\AppSdk\`): `Host` (Host API entry point), `Data/*` (DTOs), `AppServiceProvider`, `AppModel`, `AppDescriptor`,
   `Contracts/{AppHost,TenantContext,Site,AppSettings,Crm,Properties,Notifier}`, `Concerns/BelongsToTenant`, `Scopes/TenantScope`.
   `js/src/index.ts` — browser contract (`AppHost`, `defineAdminPages`, `AppManifest`).
