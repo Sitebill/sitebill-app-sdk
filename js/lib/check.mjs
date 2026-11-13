@@ -4,6 +4,20 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
 import { join, relative, sep } from 'node:path'
 import { spawnSync } from 'node:child_process'
 
+// Поля типа по строкам: новое поле начинается строкой «имя(» или «имя:» вне круглых скобок. Аргументы поля могут быть
+// записаны в несколько строк (name: String! @rules(...)), и такая строка — не новое поле.
+function splitFields(body) {
+  const fields = []
+  let depth = 0
+  for (const line of body.split('\n')) {
+    const bare = line.replace(/"(?:[^"\\]|\\.)*"/g, '""')
+    if ((depth === 0 && /^\s*[A-Za-z_]\w*\s*[(:]/.test(bare)) || !fields.length) fields.push(line)
+    else fields[fields.length - 1] += '\n' + line
+    depth += (bare.match(/\(/g) || []).length - (bare.match(/\)/g) || []).length
+  }
+  return fields
+}
+
 export const MAX_FILES = 3000
 export const MAX_UNPACKED = 64 * 1024 * 1024
 const PATH_RE = /^[A-Za-z0-9_][A-Za-z0-9._-]*(\/[A-Za-z0-9_][A-Za-z0-9._-]*)*$/
@@ -108,7 +122,7 @@ export function checkApp(root, { php = 'php' } = {}) {
     const text = readFileSync(gql, 'utf8')
     for (const hit of text.matchAll(/extend\s+type\s+Mutation\b/g)) {
       const body = inBraces(text, hit.index)
-      for (const field of body.split(/\n(?=\s*[A-Za-z_]\w*\s*[(:])/)) {
+      for (const field of splitFields(body)) {
         const name = field.trim().match(/^([A-Za-z_]\w*)/)?.[1]
         if (!name) continue
         if (!/@guard/.test(field)) warnings.push(`schema.graphql: мутация ${name} без @guard — доступна гостям`)
