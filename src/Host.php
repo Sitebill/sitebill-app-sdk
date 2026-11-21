@@ -5,6 +5,7 @@ namespace Sitebill\AppSdk;
 use Sitebill\AppSdk\Contracts\Ai;
 use Sitebill\AppSdk\Contracts\AppSettings;
 use Sitebill\AppSdk\Contracts\Crm;
+use Sitebill\AppSdk\Contracts\Files;
 use Sitebill\AppSdk\Contracts\Notifier;
 use Sitebill\AppSdk\Contracts\Properties;
 use Sitebill\AppSdk\Contracts\Site;
@@ -21,7 +22,7 @@ use Sitebill\AppSdk\Contracts\Users;
 final class Host
 {
     /** Contract version implemented by this SDK. */
-    public const API_VERSION = '1.3';
+    public const API_VERSION = '1.4';
 
     public static function site(): Site
     {
@@ -56,5 +57,10 @@ final class Host
     public static function users(): Users
     {
         return app(Users::class);
+    }
+
+    public static function files(): Files
+    {
+        return app(Files::class);
     }
 }
