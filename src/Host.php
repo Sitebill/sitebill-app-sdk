@@ -21,7 +21,7 @@ use Sitebill\AppSdk\Contracts\Users;
 final class Host
 {
     /** Contract version implemented by this SDK. */
-    public const API_VERSION = '1.2';
+    public const API_VERSION = '1.3';
 
     public static function site(): Site
     {

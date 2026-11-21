@@ -15,4 +15,12 @@ interface Users
      * @return array<int, string> id => display name (only users of the current site)
      */
     public function names(array $ids): array;
+
+    /**
+     * Search users of the current site by name or e-mail (empty query — the first users by name).
+     * Needed by apps that assign people to things (project members, assignees).
+     *
+     * @return list<array{id: int, name: string, email: string}>
+     */
+    public function search(string $query = '', int $limit = 20): array;
 }
